@@ -13,20 +13,28 @@
 
 jQuery(function ($){
 
+    // Tries to login to Banner
     try
     {
         if (window.location.href == "https://banweb.wm.edu/pls/PROD/twbkwbis.P_WWWLogin")
         {
+            // Edit to your W&M Username
             document.getElementById('UserID').value="";
+            // Edit to your W&M password
             document.getElementsByName("PIN")[0].value="";
+            
+            // Submits the form
             document.loginform.submit();
+	
         }
     }
+    // If it doesn't match the banner login page
 	catch(err)
     {
 		console.log("Not on banner page, banner link: https://banweb.wm.edu/pls/PROD/twbkwbis.P_WWWLogin");
 	}
 
+    // If user was able to login, we try to add a button to redirect to "Registration" page
 	try
     {
         if (window.location.href.slice(0,60) == "https://banweb.wm.edu/pls/PROD/twbkwbis.P_GenMenu?name=bmenu")
@@ -36,12 +44,14 @@ jQuery(function ($){
     		a.id="clickme";
 		    document.body.appendChild(a);
 		    document.getElementById('clickme').click();
+
 	    }
 	}
 	catch(err){
 		console.log("Failed to go to Registration page");
 	}
 
+    // Tries to click on "Add/Drop Classes" link 
     try
     {
         if (window.location.href == "https://banweb.wm.edu/pls/PROD/twbkwbis.P_GenMenu?name=bmenu.P_RegMnu")
@@ -53,6 +63,7 @@ jQuery(function ($){
 		console.log("Failed to find 'AddDrop' button");
 	}
     
+    // Tries find the sumbit button when prompts for the current term. I only see a brute force way to do this
 	try{
 		var inputs = document.getElementsByTagName("input");
 		for(var i = 0; i < inputs.length; i++) 
@@ -66,6 +77,7 @@ jQuery(function ($){
 		console.log("No need to select the current term");
 	}
 
+    // Directly modify the current CRN field with the value you want to register
 	try{
 		document.getElementById('crn_id1').value = 20429;
 		var inputs2 = document.getElementsByTagName("input");
@@ -81,3 +93,4 @@ jQuery(function ($){
 		console.log("Failed to find a CRN field to enter");
 	}
 });
+
